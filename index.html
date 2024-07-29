@@ -12,5 +12,91 @@
     <script defer src="./src/js/script.js"></script>
     <title>Sign-up Form</title>
   </head>
-  <body></body>
+  <body>
+    <div class="wrapper">
+      <div class="pane __left">
+        <img
+          class="image __background"
+          src="./src/img/background-img.jpg"
+          alt="Background image with green ferns"
+        />
+
+        <div class="overlay">
+          <img
+            class="image __overlay"
+            src="./src/img/odin-lined.png"
+            alt="Logo of The Odin Project, in white"
+          />
+          <h1>ODIN</h1>
+        </div>
+
+        <div class="copyright __photographer">
+          Photo by
+          <a href="https://unsplash.com/@haliewestphoto">Halie West</a>
+          on
+          <a href="https://unsplash.com">Unsplash</a>
+        </div>
+      </div>
+
+      <div class="pane __right">
+        <div class="msg">
+          <h2>
+            This is not a real service! You know you need something like this in
+            your life to help you realize your deepest dreams. Sign up
+            <em>now</em> to get started.
+          </h2>
+
+          <br />
+
+          <h2>You <em>know</em> you want to.</h2>
+        </div>
+
+        <div class="form-container">
+          <h2>Let's do this!</h2>
+
+          <form action="" id="signup-form">
+            <div class="form-group">
+              <label for="first-name">First Name</label>
+              <input type="text" id="first-name" name="first-name" required />
+            </div>
+            <div class="form-group">
+              <label for="last-name">Last Name</label>
+              <input type="text" id="last-name" name="last-name" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="email" id="email" name="email" required />
+              <small class="error .__email">Invalid email address format</small>
+            </div>
+            <div class="form-group">
+              <label for="phone-number"></label>
+              <input type="tel" id="phone-number" name="phone-number" />
+            </div>
+            <div class="form-group">
+              <label for="password"></label>
+              <input type="password" id="password" name="password" required />
+              <small class="error .__pwd-format">Weak</small>
+            </div>
+            <div class="form-group">
+              <label for="confirm-password">Confirm Password</label>
+              <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+              />
+              <small class="error .__pwd-confirm">Passwords do not match</small>
+            </div>
+          </form>
+        </div>
+
+        <div class="interactive">
+          <button class="form-submit">Create Account</button>
+          <div class="account-query">
+            Already have an account?
+            <a href="#">Log in</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>
