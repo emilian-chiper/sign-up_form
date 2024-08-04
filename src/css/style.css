@@ -14,10 +14,22 @@ html {
   margin: 0;
   padding: 0;
   min-height: 100vh;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande',
+    'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 img {
   height: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+form {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto auto;
 }
 
 .wrapper {
@@ -42,15 +54,6 @@ img {
   color: white;
 }
 
-.__right {
-  flex: 2;
-  align-items: baseline;
-}
-
-.__right > * {
-  padding: 0 5rem;
-}
-
 .__background {
   width: 100%;
 }
@@ -72,7 +75,7 @@ img {
 .logo {
   max-height: 200px;
   width: 100%;
-  margin-top: 25%;
+  margin-top: 13%;
   padding: 1em 0;
   background-color: rgb(0, 0, 0, 0.5);
   display: flex;
@@ -89,9 +92,72 @@ img {
 
 .__photographer a {
   color: white;
-  text-decoration: underline;
 }
 
 .__photographer a:hover {
   color: rgb(188, 207, 11);
+}
+
+.__right {
+  flex: 2;
+  align-items: baseline;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  background-color: rgb(248, 248, 248);
+}
+
+.__right > * {
+  width: 100%;
+  padding: 0 5rem;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: baseline;
+}
+
+.form-container {
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.15),
+    0 10px 12px rgba(0, 0, 0, 0.2);
+}
+
+.msg > h2:first-of-type {
+  width: 62%;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.interactive {
+  padding-top: 2rem;
+  justify-content: flex-start;
+}
+
+.form-submit {
+  margin-bottom: 1rem;
+  padding: 1rem 3rem;
+  border: none;
+  border-radius: 10px;
+  background-color: green;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 4px 8px rgba(0, 0, 0, 0.15),
+    0 10px 12px rgba(0, 0, 0, 0.2);
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form-submit:active {
+  transform: translateY(4px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1), 0 2px 4px rgba(0, 0, 0, 0.15),
+    0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.interactive > p > a {
+  font-weight: bold;
+  color: green;
 }
