@@ -42,6 +42,29 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     };
 
+    // Email validation
+    const validateEmail = function (input, handler) {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (input.value.length === 0) {
+        // Clear the error message if the input is empty
+        handler.style.opacity = '0';
+        handler.innerText = '_';
+        handler.classList.remove('valid', 'invalid');
+      } else if (emailRegex.test(input.value)) {
+        // Valid email
+        handler.style.opacity = '1';
+        handler.innerText = 'Valid email address';
+        handler.classList.add('valid');
+        handler.classList.remove('invalid');
+      } else {
+        // Invalid email
+        handler.style.opacity = '1';
+        handler.innerText = 'Invalid email address';
+        handler.classList.add('invalid');
+        handler.classList.remove('valid');
+      }
+    };
+
     // Invoke functions
     state();
 
@@ -52,6 +75,7 @@ window.addEventListener('DOMContentLoaded', function () {
     lastName.addEventListener('input', () =>
       checkMaxLength(lastName, errorLastName)
     );
+    email.addEventListener('input', () => validateEmail(email, errorEmail));
   };
 
   main();
