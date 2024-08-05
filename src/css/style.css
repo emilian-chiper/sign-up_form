@@ -54,10 +54,6 @@ input:focus {
   border-radius: 5px;
 }
 
-small {
-  font-size: 0.5rem;
-}
-
 .wrapper {
   min-width: 100vw;
   display: flex;
