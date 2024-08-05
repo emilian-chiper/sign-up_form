@@ -184,3 +184,11 @@ input:focus {
   font-weight: bold;
   color: rgb(86, 121, 86);
 }
+
+.invalid {
+  color: red;
+}
+
+.valid {
+  color: green;
+}
