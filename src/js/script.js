@@ -105,6 +105,25 @@ window.addEventListener('DOMContentLoaded', function () {
       errorPassword.classList.add(feedback.className);
     };
 
+    // Check if password and confirm password match
+    const checkPasswordMatch = function () {
+      if (confirmPassword.value.length === 0) {
+        errorConfirmPassword.style.opacity = '0';
+        errorConfirmPassword.innerText = '_';
+        errorConfirmPassword.classList.remove('valid', 'invalid');
+      } else if (password.value === confirmPassword.value) {
+        errorConfirmPassword.style.opacity = '1';
+        errorConfirmPassword.innerText = 'Passwords match';
+        errorConfirmPassword.classList.add('valid');
+        errorConfirmPassword.classList.remove('invalid');
+      } else {
+        errorConfirmPassword.style.opacity = '1';
+        errorConfirmPassword.innerText = 'Passwords do not match';
+        errorConfirmPassword.classList.add('invalid');
+        errorConfirmPassword.classList.remove('valid');
+      }
+    };
+
     // Invoke functions
     state();
 
@@ -117,6 +136,7 @@ window.addEventListener('DOMContentLoaded', function () {
     );
     email.addEventListener('input', () => validateEmail(email, errorEmail));
     password.addEventListener('input', () => checkPasswordStrength());
+    confirmPassword.addEventListener('input', () => checkPasswordMatch());
   };
 
   main();
