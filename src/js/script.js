@@ -65,6 +65,46 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     };
 
+    // Check password strength
+    const checkPasswordStrength = function () {
+      const regExTiers = {
+        veryStrong: {
+          gauge: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/, // At least 10 characters, including uppercase and lowercase letters, numbers, and special characters
+          text: 'Very strong password',
+          className: 'very-strong',
+        },
+        strong: {
+          gauge: /^(?=.*[a-zA-Z])(?=.*\d)(?=.*[\W_]).{8,}$/, // At least 8 characters, including letters, numbers, and special characters
+          text: 'Strong password',
+          className: 'strong',
+        },
+        medium: {
+          gauge: /^(?=.*[a-zA-Z])(?=.*\d).{6,}$/, // At least 6 characters, including letters and numbers
+          text: 'Medium password',
+          className: 'medium',
+        },
+        weak: {
+          gauge: /^.{6,}$/, // Minimum 6 characters (any)
+          text: 'Weak password',
+          className: 'weak',
+        },
+      };
+
+      // Find the first matching regex tier
+      const feedback =
+        Object.values(regExTiers).find(tier =>
+          tier.gauge.test(password.value)
+        ) || regExTiers.weak;
+
+      // Display the feedback
+      errorPassword.style.opacity = '1';
+      errorPassword.innerText = feedback.text;
+
+      // Reset all classes and apply the new one
+      errorPassword.className = '';
+      errorPassword.classList.add(feedback.className);
+    };
+
     // Invoke functions
     state();
 
@@ -76,6 +116,7 @@ window.addEventListener('DOMContentLoaded', function () {
       checkMaxLength(lastName, errorLastName)
     );
     email.addEventListener('input', () => validateEmail(email, errorEmail));
+    password.addEventListener('input', () => checkPasswordStrength());
   };
 
   main();

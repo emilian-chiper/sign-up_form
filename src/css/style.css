@@ -192,3 +192,19 @@ input:focus {
 .valid {
   color: green;
 }
+
+.weak {
+  color: crimson;
+}
+
+.medium {
+  color: orangered;
+}
+
+.strong {
+  color: gold;
+}
+
+.very-strong {
+  color: green;
+}
