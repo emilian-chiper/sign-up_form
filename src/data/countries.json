@@ -1,0 +1,7 @@
+[
+  { "name": "United States", "code": "+1", "flag": "🇺🇸", "maxLength": 10 },
+  { "name": "United Kingdom", "code": "+44", "flag": "🇬🇧", "maxLength": 10 },
+  { "name": "Canada", "code": "+1", "flag": "🇨🇦", "maxLength": 10 },
+  { "name": "Germany", "code": "+49", "flag": "🇩🇪", "maxLength": 11 },
+  { "name": "Australia", "code": "+61", "flag": "🇦🇺", "maxLength": 9 }
+]
