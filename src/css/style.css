@@ -208,3 +208,41 @@ input:focus {
 .very-strong {
   color: green;
 }
+
+/* Phone Input Container */
+.phone-container {
+  display: flex;
+  border: 2px solid rgb(230, 230, 230);
+  border-radius: 5px;
+}
+
+.phone-container select {
+  border: none;
+  border-right: 1px solid rgb(230, 230, 230);
+  background: transparent;
+  cursor: pointer;
+}
+
+.phone-container input {
+  border: none;
+  outline: none;
+  flex: 1;
+}
+
+.phone-container input:focus {
+  border: none;
+  outline: none;
+}
+
+#country-select {
+  border: none;
+  border-right: 1px solid rgb(230, 230, 230);
+  background: transparent;
+  cursor: pointer;
+}
+
+#phone-number {
+  border: none;
+  outline: none;
+  flex: 1;
+}
