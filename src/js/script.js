@@ -21,8 +21,14 @@ window.addEventListener('DOMContentLoaded', function () {
     };
 
     // Show validation feedback
-    const showFeedback = function (input, handler, isValid, validMessage, invalidMessage) {
-      if (input.value.length === 0 {
+    const showFeedback = function (
+      input,
+      handler,
+      isValid,
+      validMessage,
+      invalidMessage
+    ) {
+      if (input.value.length === 0) {
         handler.style.opacity = '0';
         handler.innerText = '_';
         handler.className = '';
@@ -36,13 +42,25 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Check max length of first and last name
     const checkMaxLength = function (input, handler) {
-      showFeedback(input, handler, input.value.length <= 35, 'Valid name', 'Maximum number of characters: 35');
+      showFeedback(
+        input,
+        handler,
+        input.value.length <= 35,
+        'Valid name',
+        'Maximum number of characters: 35'
+      );
     };
 
     // Email validation
     const validateEmail = function (input, handler) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      showFeedback(input, handler, emailRegex.test(input.value), 'Valid email address', 'Invalid email address');
+      showFeedback(
+        input,
+        handler,
+        emailRegex.test(input.value),
+        'Valid email address',
+        'Invalid email address'
+      );
     };
 
     // Check password strength
@@ -88,7 +106,13 @@ window.addEventListener('DOMContentLoaded', function () {
     // Check if password and confirm password match
     const checkPasswordMatch = function () {
       const isValid = password.value === confirmPassword.value;
-      showFeedback(confirmPassword, errorConfirmPassword, isValid, 'Passwords match', 'Passwords do not match');
+      showFeedback(
+        confirmPassword,
+        errorConfirmPassword,
+        isValid,
+        'Passwords match',
+        'Passwords do not match'
+      );
     };
 
     // Invoke functions
