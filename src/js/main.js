@@ -95,6 +95,7 @@ window.addEventListener('DOMContentLoaded', function () {
 
     populateCountryOptions(countryData);
 
+    // Validate phone number
     const validatePhoneNumber = function () {
       const selectedCountryCode = countrySelectElement.value;
       const country = countryData.find(
@@ -112,8 +113,6 @@ window.addEventListener('DOMContentLoaded', function () {
         } digits`
       );
     };
-
-    // Validate phone number
 
     ///////////////////////////////////////////
     // PASSWORD VALIDATION
@@ -178,19 +177,35 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Assign callbacks to event listeners
     const validationMap = [
-      { input: firstName, handler: errorFirstName, validation: checkMaxLength },
-      { input: lastName, handler: errorLastName, validation: checkMaxLength },
-      { input: email, handler: errorEmail, validation: validateEmail },
-      { input: phone, handler: errorPhone, validation: validatePhoneNumber },
+      {
+        input: firstName,
+        handler: errorFirstName,
+        validation: e => checkMaxLength(e.target, errorFirstName),
+      },
+      {
+        input: lastName,
+        handler: errorLastName,
+        validation: e => checkMaxLength(e.target, errorLastName),
+      },
+      {
+        input: email,
+        handler: errorEmail,
+        validation: e => validateEmail(e.target, errorEmail),
+      },
+      {
+        input: phone,
+        handler: errorPhone,
+        validation: e => validatePhoneNumber(),
+      },
       {
         input: password,
         handler: errorPassword,
-        validation: checkPasswordStrength,
+        validation: e => checkPasswordStrength(),
       },
       {
         input: confirmPassword,
         handler: errorConfirmPassword,
-        validation: checkPasswordMatch,
+        validation: e => checkPasswordMatch(),
       },
     ];
 
