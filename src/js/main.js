@@ -133,14 +133,14 @@ window.addEventListener('DOMContentLoaded', function () {
      * Validates the phone number based on the selected country and its max length.
      * @function validatePhoneNumber
      */
-    // BUG Phone number should be regarded as valid only IF its length equals the max length retrieved from the countries.json file
     const validatePhoneNumber = function () {
       const selectedCountryCode = countrySelectElement.value;
       const country = countryData.find(
         country => country.code === selectedCountryCode
       );
+      phone.value = phone.value.replace(/\D/g, '');
       const isValid =
-        phone.value.length <= (country ? country.maxLength : Infinity);
+        phone.value.length === (country ? country.maxLength : Infinity);
       showFeedback(
         phone,
         errorPhone,
