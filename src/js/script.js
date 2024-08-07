@@ -1,7 +1,7 @@
 window.addEventListener('DOMContentLoaded', function () {
   const main = function () {
     // Access form input elements
-    const [firstName, lastName, email, phoneNumber, password, confirmPassword] =
+    const [firstName, lastName, email, phone, password, confirmPassword] =
       document.getElementsByTagName('input');
     const [
       errorFirstName,
@@ -94,6 +94,9 @@ window.addEventListener('DOMContentLoaded', function () {
           tier.gauge.test(password.value)
         ) || strengthTiers.weak;
 
+      console.log(`Password strength feedback: ${feedback.text}`);
+      console.log(`Classes before: ${errorPassword.className}`);
+
       // Display the feedback
       errorPassword.style.opacity = '1';
       errorPassword.innerText = feedback.text;
@@ -101,6 +104,8 @@ window.addEventListener('DOMContentLoaded', function () {
       // Reset all classes and apply the new one
       errorPassword.className = '';
       errorPassword.classList.add(feedback.className);
+
+      console.log(`Classes after: ${errorPassword.className}`);
     };
 
     // Check if password and confirm password match
@@ -126,7 +131,7 @@ window.addEventListener('DOMContentLoaded', function () {
       checkMaxLength(lastName, errorLastName)
     );
     email.addEventListener('input', () => validateEmail(email, errorEmail));
-    password.addEventListener('input', () => checkPasswordStrength());
+    password.addEventListener('input', () => checkPasswordStrength()); // Added ()
     confirmPassword.addEventListener('input', () => checkPasswordMatch());
   };
 
