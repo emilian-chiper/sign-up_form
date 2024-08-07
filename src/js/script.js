@@ -20,54 +20,34 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     };
 
+    // Show validation feedback
+    const showFeedback = function (input, handler, isValid, validMessage, invalidMessage) {
+      if (input.value.length === 0 {
+        handler.style.opacity = '0';
+        handler.innerText = '_';
+        handler.className = '';
+      } else {
+        handler.style.opacity = '1';
+        handler.innerText = isValid ? validMessage : invalidMessage;
+        handler.classList.toggle('valid', isValid);
+        handler.classList.toggle('invalid', !isValid);
+      }
+    };
+
     // Check max length of first and last name
     const checkMaxLength = function (input, handler) {
-      if (input.value.length === 0) {
-        // Clear the error message if the input is empty
-        handler.style.opacity = '0';
-        handler.innerText = '-';
-        handler.classList.remove('valid', 'invalid');
-      } else if (input.value.length <= 35) {
-        // Valid input
-        handler.style.opacity = '1';
-        handler.innerText = 'Valid name';
-        handler.classList.add('valid');
-        handler.classList.remove('invalid');
-      } else {
-        // Invalid input
-        handler.style.opacity = '1';
-        handler.innerText = 'Maximum number of characters: 35';
-        handler.classList.add('invalid');
-        handler.classList.remove('valid');
-      }
+      showFeedback(input, handler, input.value.length <= 35, 'Valid name', 'Maximum number of characters: 35');
     };
 
     // Email validation
     const validateEmail = function (input, handler) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (input.value.length === 0) {
-        // Clear the error message if the input is empty
-        handler.style.opacity = '0';
-        handler.innerText = '_';
-        handler.classList.remove('valid', 'invalid');
-      } else if (emailRegex.test(input.value)) {
-        // Valid email
-        handler.style.opacity = '1';
-        handler.innerText = 'Valid email address';
-        handler.classList.add('valid');
-        handler.classList.remove('invalid');
-      } else {
-        // Invalid email
-        handler.style.opacity = '1';
-        handler.innerText = 'Invalid email address';
-        handler.classList.add('invalid');
-        handler.classList.remove('valid');
-      }
+      showFeedback(input, handler, emailRegex.test(input.value), 'Valid email address', 'Invalid email address');
     };
 
     // Check password strength
     const checkPasswordStrength = function () {
-      const regExTiers = {
+      const strengthTiers = {
         veryStrong: {
           gauge: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[\W_]).{10,}$/, // At least 10 characters, including uppercase and lowercase letters, numbers, and special characters
           text: 'Very strong password',
@@ -92,9 +72,9 @@ window.addEventListener('DOMContentLoaded', function () {
 
       // Find the first matching regex tier
       const feedback =
-        Object.values(regExTiers).find(tier =>
+        Object.values(strengthTiers).find(tier =>
           tier.gauge.test(password.value)
-        ) || regExTiers.weak;
+        ) || strengthTiers.weak;
 
       // Display the feedback
       errorPassword.style.opacity = '1';
@@ -107,21 +87,8 @@ window.addEventListener('DOMContentLoaded', function () {
 
     // Check if password and confirm password match
     const checkPasswordMatch = function () {
-      if (confirmPassword.value.length === 0) {
-        errorConfirmPassword.style.opacity = '0';
-        errorConfirmPassword.innerText = '_';
-        errorConfirmPassword.classList.remove('valid', 'invalid');
-      } else if (password.value === confirmPassword.value) {
-        errorConfirmPassword.style.opacity = '1';
-        errorConfirmPassword.innerText = 'Passwords match';
-        errorConfirmPassword.classList.add('valid');
-        errorConfirmPassword.classList.remove('invalid');
-      } else {
-        errorConfirmPassword.style.opacity = '1';
-        errorConfirmPassword.innerText = 'Passwords do not match';
-        errorConfirmPassword.classList.add('invalid');
-        errorConfirmPassword.classList.remove('valid');
-      }
+      const isValid = password.value === confirmPassword.value;
+      showFeedback(confirmPassword, errorConfirmPassword, isValid, 'Passwords match', 'Passwords do not match');
     };
 
     // Invoke functions
