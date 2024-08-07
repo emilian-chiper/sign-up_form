@@ -65,7 +65,7 @@ window.addEventListener('DOMContentLoaded', function () {
     // EMAIL VALIDATION
     /////////////////////////////////////////////////
     const validateEmail = function (input, handler) {
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z]+$/;
       showFeedback(
         input,
         handler,
