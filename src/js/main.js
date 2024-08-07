@@ -1,6 +1,11 @@
 import { fetchCountryData } from './phoneData.js';
 
 window.addEventListener('DOMContentLoaded', function () {
+  /**
+   * Main function to handle form validation and data population.
+   * @async
+   * @function main
+   */
   const main = async function () {
     // Access DOM elements
     const [firstName, lastName, email, phone, password, confirmPassword] =
@@ -18,7 +23,11 @@ window.addEventListener('DOMContentLoaded', function () {
     ///////////////////////////
     // DISPLAY MANIPULATION
     ///////////////////////////
-    // Set initial state of the error elements
+
+    /**
+     * Sets the initial state of error elements in the form.
+     * @function state
+     */
     const state = function () {
       [...document.getElementsByTagName('small')].forEach(small => {
         small.style.opacity = '0';
@@ -27,7 +36,15 @@ window.addEventListener('DOMContentLoaded', function () {
       });
     };
 
-    // Show validation feedback
+    /**
+     * Displays validation feedback based on the input value and validation result.
+     * @function showFeedback
+     * @param {HTMLElement} input - The input element being validated.
+     * @param {HTMLElement} handler - The corresponding small element for displaying feedback.
+     * @param {boolean} isValid - The result of the validation (true if valid, false otherwise).
+     * @param {string} validMessage - The message to display if the input is valid.
+     * @param {string} invalidMessage - The message to display if the input is invalid.
+     */
     const showFeedback = function (
       input,
       handler,
@@ -47,10 +64,16 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     };
 
-    //////////////////////////////////////////////////
+    //////////////////////
     // NAME VALIDATION
-    //////////////////////////////////////////////////
-    // Check max length of first and last name
+    //////////////////////
+
+    /**
+     * Validates the maximum length of a name input (first or last name).
+     * @function checkMaxLength
+     * @param {HTMLElement} input - The input element being validated.
+     * @param {HTMLElement} handler - The corresponding small element for displaying feedback.
+     */
     const checkMaxLength = function (input, handler) {
       showFeedback(
         input,
@@ -61,9 +84,16 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
-    /////////////////////////////////////////////////
+    ///////////////////////
     // EMAIL VALIDATION
-    /////////////////////////////////////////////////
+    ///////////////////////
+
+    /**
+     * Validates an email address using a regular expression.
+     * @function validateEmail
+     * @param {HTMLElement} input - The email input element.
+     * @param {HTMLElement} handler - The corresponding small element for displaying feedback.
+     */
     const validateEmail = function (input, handler) {
       const emailRegex = /^[a-zA-Z0-9._]+@[a-zA-Z]+\.[a-zA-Z]+$/;
       showFeedback(
@@ -75,14 +105,18 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
-    ////////////////////////////////////////////
+    //////////////////////////////
     // PHONE NUMBER VALIDATION
-    ////////////////////////////////////////////
+    //////////////////////////////
 
     // Fetch country data
     const countryData = await fetchCountryData();
 
-    // Populate dropdown
+    /**
+     * Populates the country dropdown with options from fetched country data.
+     * @function populateCountryOptions
+     * @param {Array<Object>} countries - The array of country objects containing name, code, and flag.
+     */
     const populateCountryOptions = function (countries) {
       countrySelectElement.innerHTML = '';
       countries.forEach(({ name, code, flag }) => {
@@ -95,7 +129,11 @@ window.addEventListener('DOMContentLoaded', function () {
 
     populateCountryOptions(countryData);
 
-    // Validate phone number
+    /**
+     * Validates the phone number based on the selected country and its max length.
+     * @function validatePhoneNumber
+     */
+    // BUG Phone number should be regarded as valid only IF its length equals the max length retrieved from the countries.json file
     const validatePhoneNumber = function () {
       const selectedCountryCode = countrySelectElement.value;
       const country = countryData.find(
@@ -114,10 +152,14 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
-    ///////////////////////////////////////////
+    //////////////////////////
     // PASSWORD VALIDATION
-    ///////////////////////////////////////////
-    // Check password strength
+    //////////////////////////
+
+    /**
+     * Checks the strength of the password based on predefined strength tiers.
+     * @function checkPasswordStrength
+     */
     const checkPasswordStrength = function () {
       const strengthTiers = {
         veryStrong: {
@@ -157,7 +199,10 @@ window.addEventListener('DOMContentLoaded', function () {
       errorPassword.classList.add(feedback.className);
     };
 
-    // Check if password and confirm password match
+    /**
+     * Checks if the password and confirm password inputs match.
+     * @function checkPasswordMatch
+     */
     const checkPasswordMatch = function () {
       const isValid = password.value === confirmPassword.value;
       showFeedback(
@@ -169,13 +214,14 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
-    ///////////////////////
-    // FUNCTION CALLS
-    ///////////////////////
-    // Invoke functions
-    state();
+    ///////////////////////////////////////
+    // EVENT LISTENERS & FUNCTION CALLS
+    ///////////////////////////////////////
 
-    // Assign callbacks to event listeners
+    /**
+     * Maps inputs to their validation functions and assigns event listeners.
+     * @type {Array<Object>}
+     */
     const validationMap = [
       {
         input: firstName,
@@ -209,9 +255,23 @@ window.addEventListener('DOMContentLoaded', function () {
       },
     ];
 
-    validationMap.forEach(({ input, validation }) => {
-      input.addEventListener('input', validation);
-    });
+    /**
+     * Attaches event listeners to input elements for validation.
+     *
+     * Iterates over the `validationMap` array and adds an `input` event listener
+     * to each input element. The event listener triggers the corresponding validation function.
+     *
+     * @function attachEventListeners
+     */
+    const attachEventListeners = function () {
+      validationMap.forEach(({ input, validation }) => {
+        input.addEventListener('input', validation);
+      });
+    };
+
+    // Invoke functions
+    state();
+    attachEventListeners();
   };
 
   main();
