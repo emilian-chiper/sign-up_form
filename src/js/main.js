@@ -1,15 +1,22 @@
+import { fetchCountryData } from './phoneData.js';
+
 window.addEventListener('DOMContentLoaded', function () {
-  const main = function () {
-    // Access form input elements
+  const main = async function () {
+    // Access DOM elements
     const [firstName, lastName, email, phone, password, confirmPassword] =
       document.getElementsByTagName('input');
     const [
       errorFirstName,
       errorLastName,
       errorEmail,
+      errorPhone,
       errorPassword,
       errorConfirmPassword,
     ] = document.getElementsByTagName('small');
+
+    // Fetch country data
+    const countryData = await fetchCountryData();
+    console.log(countryData);
 
     // Set initial state of the error elements
     const state = function () {
@@ -94,9 +101,6 @@ window.addEventListener('DOMContentLoaded', function () {
           tier.gauge.test(password.value)
         ) || strengthTiers.weak;
 
-      console.log(`Password strength feedback: ${feedback.text}`);
-      console.log(`Classes before: ${errorPassword.className}`);
-
       // Display the feedback
       errorPassword.style.opacity = '1';
       errorPassword.innerText = feedback.text;
@@ -104,8 +108,6 @@ window.addEventListener('DOMContentLoaded', function () {
       // Reset all classes and apply the new one
       errorPassword.className = '';
       errorPassword.classList.add(feedback.className);
-
-      console.log(`Classes after: ${errorPassword.className}`);
     };
 
     // Check if password and confirm password match
@@ -127,12 +129,13 @@ window.addEventListener('DOMContentLoaded', function () {
     const validationMap = [
       { input: firstName, handler: errorFirstName, validation: checkMaxLength },
       { input: lastName, handler: errorLastName, validation: checkMaxLength },
-      { input: email, handler: email, validation: validateEmail },
+      { input: email, handler: errorEmail, validation: validateEmail },
       {
         input: password,
         handler: errorPassword,
         validation: checkPasswordStrength,
       },
+      { input: phone, handler: errorPhone, validation: validatePhoneNumber },
       {
         input: confirmPassword,
         handler: errorConfirmPassword,
