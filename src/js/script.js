@@ -124,15 +124,25 @@ window.addEventListener('DOMContentLoaded', function () {
     state();
 
     // Assign callbacks to event listeners
-    firstName.addEventListener('input', () =>
-      checkMaxLength(firstName, errorFirstName)
-    );
-    lastName.addEventListener('input', () =>
-      checkMaxLength(lastName, errorLastName)
-    );
-    email.addEventListener('input', () => validateEmail(email, errorEmail));
-    password.addEventListener('input', () => checkPasswordStrength()); // Added ()
-    confirmPassword.addEventListener('input', () => checkPasswordMatch());
+    const validationMap = [
+      { input: firstName, handler: errorFirstName, validation: checkMaxLength },
+      { input: lastName, handler: errorLastName, validation: checkMaxLength },
+      { input: email, handler: email, validation: validateEmail },
+      {
+        input: password,
+        handler: errorPassword,
+        validation: checkPasswordStrength,
+      },
+      {
+        input: confirmPassword,
+        handler: errorConfirmPassword,
+        validation: checkPasswordMatch,
+      },
+    ];
+
+    validationMap.forEach(({ input, validation }) => {
+      input.addEventListener('input', validation);
+    });
   };
 
   main();
