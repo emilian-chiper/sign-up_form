@@ -13,11 +13,11 @@ window.addEventListener('DOMContentLoaded', function () {
       errorPassword,
       errorConfirmPassword,
     ] = document.getElementsByTagName('small');
+    const countrySelectElement = document.querySelector('#country-code');
 
-    // Fetch country data
-    const countryData = await fetchCountryData();
-    console.log(countryData);
-
+    ///////////////////////////
+    // DISPLAY MANIPULATION
+    ///////////////////////////
     // Set initial state of the error elements
     const state = function () {
       [...document.getElementsByTagName('small')].forEach(small => {
@@ -47,6 +47,9 @@ window.addEventListener('DOMContentLoaded', function () {
       }
     };
 
+    //////////////////////////////////////////////////
+    // NAME VALIDATION
+    //////////////////////////////////////////////////
     // Check max length of first and last name
     const checkMaxLength = function (input, handler) {
       showFeedback(
@@ -58,7 +61,9 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
-    // Email validation
+    /////////////////////////////////////////////////
+    // EMAIL VALIDATION
+    /////////////////////////////////////////////////
     const validateEmail = function (input, handler) {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       showFeedback(
@@ -70,6 +75,49 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
+    ////////////////////////////////////////////
+    // PHONE NUMBER VALIDATION
+    ////////////////////////////////////////////
+
+    // Fetch country data
+    const countryData = await fetchCountryData();
+
+    // Populate dropdown
+    const populateCountryOptions = function (countries) {
+      countrySelectElement.innerHTML = '';
+      countries.forEach(({ name, code, flag }) => {
+        const option = document.createElement('option');
+        option.value = code;
+        option.textContent = `${flag} ${name} (${code})`;
+        countrySelectElement.appendChild(option);
+      });
+    };
+
+    populateCountryOptions(countryData);
+
+    const validatePhoneNumber = function () {
+      const selectedCountryCode = countrySelectElement.value;
+      const country = countryData.find(
+        country => country.code === selectedCountryCode
+      );
+      const isValid =
+        phone.value.length <= (country ? country.maxLength : Infinity);
+      showFeedback(
+        phone,
+        errorPhone,
+        isValid,
+        'Valid phone number',
+        `Phone number must be up to ${
+          country ? country.maxLength : 'N/A'
+        } digits`
+      );
+    };
+
+    // Validate phone number
+
+    ///////////////////////////////////////////
+    // PASSWORD VALIDATION
+    ///////////////////////////////////////////
     // Check password strength
     const checkPasswordStrength = function () {
       const strengthTiers = {
@@ -122,6 +170,9 @@ window.addEventListener('DOMContentLoaded', function () {
       );
     };
 
+    ///////////////////////
+    // FUNCTION CALLS
+    ///////////////////////
     // Invoke functions
     state();
 
@@ -130,12 +181,12 @@ window.addEventListener('DOMContentLoaded', function () {
       { input: firstName, handler: errorFirstName, validation: checkMaxLength },
       { input: lastName, handler: errorLastName, validation: checkMaxLength },
       { input: email, handler: errorEmail, validation: validateEmail },
+      { input: phone, handler: errorPhone, validation: validatePhoneNumber },
       {
         input: password,
         handler: errorPassword,
         validation: checkPasswordStrength,
       },
-      { input: phone, handler: errorPhone, validation: validatePhoneNumber },
       {
         input: confirmPassword,
         handler: errorConfirmPassword,
